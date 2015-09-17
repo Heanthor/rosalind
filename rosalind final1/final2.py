@@ -1,30 +1,26 @@
+from itertools import chain, combinations, product
+
 filename = "final2.txt"
 
 alphabet = ["A", "C", "T", "G"]
 
-def neighborhood(kmer, d, strings):
-    # base case
-    if d == 0:
-        if len(strings) == 0:
-            return [kmer]
-        else:
-            strings.append(kmer)
-            return strings
 
-    for i in range(len(kmer)): # position in string
-        for j in range(len(alphabet)): # letter to swap out
-            # make list out of kmer string
-            new_kmer = []
-            for char in kmer:
-                new_kmer.append(char)
+def hamming_all_d(kmer, d):
+    return chain.from_iterable(hamming_d(kmer, i) for i in range(d + 1))
 
-            if not kmer[i] == alphabet[j]:
-                new_kmer[i] = alphabet[j]
-                strings.append("".join(new_kmer))
-    return neighborhood(kmer, d - 1, strings)
+def hamming_d(kmer, d):
+    for pos in combinations(range(len(kmer)), d):
+        for replacements in product(range(len(alphabet) - 1), repeat = d):
+            cousin = list(kmer)
+            for p, r in zip(pos, replacements):
+                if cousin[p] == alphabet[r]:
+                    cousin[p] = alphabet[-1]
+                else:
+                    cousin[p] = alphabet[r]
+            yield ''.join(cousin)
 
 
 with open(filename, 'r') as f:
     genome = f.readline().strip()
     k, d = f.readline().strip().split(" ")
-    print neighborhood("ACG", 1, [])
+    print "\n".join(hamming_all_d(genome, int(d)))
