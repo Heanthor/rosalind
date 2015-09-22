@@ -35,7 +35,7 @@ def unique_substrings(text, length):
 
     return strings
 
-filename = "ex13.txt"
+filename = "rosalind_ba1e.txt"
 with open(filename, 'r') as f:
     dna = f.readline().strip()
     k, l, t = f.readline().strip().split(" ")
