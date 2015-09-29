@@ -1,4 +1,4 @@
-filename = "rosalind_ba1f.txt"
+filename = "campy.fa"
 
 countG = []
 countC = []
