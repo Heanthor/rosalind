@@ -68,6 +68,27 @@ def clusters_to_centers(m, clusters_hash):
     return new_hash
 
 
+def list_equal(l1, l2):
+    for item in l1:
+        if item not in l2:
+            return False
+
+    return True
+
+
+def lloyd_algorithm(k, m, data):
+    starting_centers = arbitrary_points(k, data)
+    clusters = centers_to_clusters(m, starting_centers, data)
+
+    while True:
+        new_clusters = clusters_to_centers(m, clusters)
+        centers = map(literal_eval, new_clusters.keys())
+
+        if list_equal(clusters.keys(), map(str, centers)):
+            return centers
+        clusters = centers_to_clusters(m, centers, data)
+
+
 with open(filename, 'r') as f:
     k, m = f.readline().strip().split(" ")
     data = []
@@ -79,9 +100,17 @@ with open(filename, 'r') as f:
             break
 
         data.append(line.split(" "))
-    print center_of_gravity(int(m), data)
-    ap = arbitrary_points(int(k), data)
-    print ap
-    c = centers_to_clusters(int(m), ap, data)
-    print c
-    print clusters_to_centers(int(m), c)
+
+    out = lloyd_algorithm(int(k), int(m), data)
+    for item in out:
+        result = [round(p, 3) for p in item]
+
+        for x in result:
+            print x,
+        print
+    # print center_of_gravity(int(m), data)
+    # ap = arbitrary_points(int(k), data)
+    # print ap
+    # c = centers_to_clusters(int(m), ap, data)
+    # print c
+    # print clusters_to_centers(int(m), c)

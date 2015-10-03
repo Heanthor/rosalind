@@ -32,6 +32,7 @@ def squared_error_distortion(m, centers, data):
         s += (nearest_center(m, pt, centers))**2
     return (1.0/n) * s
 
+
 with open(filename, 'r') as f:
     k, m = f.readline().strip().split(" ")
     centers = []
