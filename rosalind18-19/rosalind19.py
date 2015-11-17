@@ -54,7 +54,7 @@ def centers_to_clusters(m, centers, data):
 
     for pt in data:
         closest_center = nearest_center(m, pt, centers)
-        clusters[str(closest_center)].append(pt)
+        clusters[str(closest_center)].add_node(pt)
     return clusters
 
 

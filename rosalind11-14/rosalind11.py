@@ -34,7 +34,7 @@ def maximum_kmer(text, length):
         c = count(text, kmer) # number of times kmer appears in text
         if c >= max_num: # kmer is a max kmer
             max_num = c
-            max_kmers[max_num].append(kmer)
+            max_kmers[max_num].add_node(kmer)
 
     return max_kmers[max(max_kmers.keys())]
 

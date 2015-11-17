@@ -74,7 +74,7 @@ def reproduce(population, num_offspring, mutation_rate):
             children.append((child_age, child_gene))
 
     for child in children:
-        population.append(child)
+        population.add_node(child)
     return population
 
 
