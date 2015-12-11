@@ -15,8 +15,11 @@ def generate_suffixes(text):
 def sort_suffixes(suffix_dict):
     sorted_suffixes = sorted(suffix_dict.items(), key=operator.itemgetter(1))
 
-    return sorted_suffixes
+    return [suffix[0] for suffix in sorted_suffixes]
 
+
+def get_suffix_array(text):
+    return sort_suffixes(generate_suffixes(text))
 
 # with open(filename, 'r') as f:
 #     text = f.read().strip()
